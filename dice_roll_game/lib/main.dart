@@ -26,8 +26,6 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
   Key _diceKey = UniqueKey(); // To re-trigger the roll animation
 
   void _rollTheDice() {
-    // To re-trigger the animation and onRoll, we change the key of RollDice2D.
-    // This causes the widget to be rebuilt and its initState (including the roll) to run again.
     setState(() {
       _diceKey = UniqueKey();
     });
@@ -36,7 +34,19 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('RollDice2D Game')),
+      backgroundColor: Color.fromARGB(255, 250, 250, 250),
+      appBar: AppBar(
+        backgroundColor: Colors.teal,
+        centerTitle: true,
+        title: const Text(
+          'Roll Dice 2D Game',
+          style: TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 250, 250, 250),
+          ),
+        ),
+      ),
       body: Column(
         children: [
           // Player labels
@@ -48,13 +58,25 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(
-                  "Player 1",
-                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 40.0, 0.0),
+                  child: Text(
+                    "Player 1",
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-                Text(
-                  "Player 2",
-                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(40.0, 0.0, 0.0, 0.0),
+                  child: Text(
+                    "Player 2",
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -89,7 +111,15 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _rollTheDice,
-                    child: const Text('Roll Again'),
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(
+                        Color.fromARGB(255, 237, 255, 254),
+                      ),
+                    ),
+                    child: const Text(
+                      'Roll Again',
+                      style: TextStyle(color: Colors.teal),
+                    ),
                   ),
                 ],
               ),
