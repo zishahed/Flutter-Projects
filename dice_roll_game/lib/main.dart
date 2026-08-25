@@ -35,7 +35,6 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
 
   final int winningScore = 30;
 
-  int _currentDiceValue = 6; // To store the dice value
   Key _diceKey = UniqueKey(); // To re-trigger the roll animation
 
   void _rollTheDice() {
@@ -140,6 +139,9 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
                             style: TextStyle(
                               fontSize: 26.0,
                               fontWeight: FontWeight.bold,
+                              color: !gameOver && currentPlayer == 1
+                                  ? Colors.teal
+                                  : Colors.black,
                             ),
                           ),
                           Text(
@@ -161,6 +163,9 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
                             style: TextStyle(
                               fontSize: 26.0,
                               fontWeight: FontWeight.bold,
+                              color: !gameOver && currentPlayer == 1
+                                  ? Colors.teal
+                                  : Colors.black,
                             ),
                           ),
                           Text(
@@ -179,8 +184,8 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
             ),
 
             const SizedBox(height: 100),
-            const Text(
-              "Player 1's turn",
+            Text(
+              gameStatus,
               style: TextStyle(
                 fontSize: 22.0,
                 fontWeight: FontWeight.w500,
@@ -191,15 +196,11 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
             // Dice animation
             const SizedBox(height: 100.0),
             RollDice2D(
-              key: _diceKey, // Assign the key here
+              key: _diceKey,
               onRoll: (int value) {
-                // This callback is triggered after the rolling animation completes (if any).
-                // It provides the final value of the dice.
-                setState(() {
-                  _currentDiceValue = value;
-                });
+                handleDiceRoll(value);
               },
-              color: DiceColor.white, // Or DiceColor.white
+              color: DiceColor.white,
               rollingTimes: 5,
               // Number of times the dice face changes during animation
               // If 1 or less, shows initial face and calls onRoll immediately.
@@ -209,13 +210,13 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
 
             const SizedBox(height: 40),
             Text(
-              'Dice Value: $_currentDiceValue',
+              'Dice Value: $currentDiceValue',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
 
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _rollTheDice,
+              onPressed: gameOver ? null : _rollTheDice,
               style: ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(
                   Color.fromARGB(255, 237, 255, 254),
