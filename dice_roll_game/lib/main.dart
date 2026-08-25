@@ -49,80 +49,98 @@ class _DiceDemoPageState extends State<DiceDemoPage> {
       ),
       body: Column(
         children: [
+          const SizedBox(height: 50.0),
           // Player labels
-          Padding(
-            padding: const EdgeInsetsGeometry.symmetric(
-              vertical: 24.0,
-              horizontal: 24.0,
-            ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 40.0, 0.0),
-                  child: Text(
-                    "Player 1",
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 40.0, 0.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Player 1",
+                          style: TextStyle(
+                            fontSize: 26.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "23",
+                          style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(40.0, 0.0, 0.0, 0.0),
-                  child: Text(
-                    "Player 2",
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Dice animation
-          Expanded(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RollDice2D(
-                    key: _diceKey, // Assign the key here
-                    onRoll: (int value) {
-                      // This callback is triggered after the rolling animation completes (if any).
-                      // It provides the final value of the dice.
-                      setState(() {
-                        _currentDiceValue = value;
-                      });
-                    },
-                    color: DiceColor.white, // Or DiceColor.white
-                    rollingTimes: 5,
-                    // Number of times the dice face changes during animation
-                    // If 1 or less, shows initial face and calls onRoll immediately.
-                    speed:
-                        150, // Duration in milliseconds for each face change animation
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Dice Value: $_currentDiceValue',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _rollTheDice,
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(
-                        Color.fromARGB(255, 237, 255, 254),
-                      ),
-                    ),
-                    child: const Text(
-                      'Roll Again',
-                      style: TextStyle(color: Colors.teal),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(40.0, 0.0, 0.0, 0.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Player 2",
+                          style: TextStyle(
+                            fontSize: 26.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "23",
+                          style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
+            ],
+          ),
+
+          const SizedBox(height: 100),
+          const Text("Player 1's turn"),
+
+          // Dice animation
+          const SizedBox(height: 100.0),
+          RollDice2D(
+            key: _diceKey, // Assign the key here
+            onRoll: (int value) {
+              // This callback is triggered after the rolling animation completes (if any).
+              // It provides the final value of the dice.
+              setState(() {
+                _currentDiceValue = value;
+              });
+            },
+            color: DiceColor.white, // Or DiceColor.white
+            rollingTimes: 5,
+            // Number of times the dice face changes during animation
+            // If 1 or less, shows initial face and calls onRoll immediately.
+            speed:
+                150, // Duration in milliseconds for each face change animation
+          ),
+          const SizedBox(height: 40),
+          Text(
+            'Dice Value: $_currentDiceValue',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: _rollTheDice,
+            style: ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(
+                Color.fromARGB(255, 237, 255, 254),
+              ),
+            ),
+            child: const Text(
+              'Roll Again',
+              style: TextStyle(color: Colors.teal),
             ),
           ),
         ],
