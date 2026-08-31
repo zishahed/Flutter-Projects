@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:roll_dice_2d/roll_dice_2d.dart';
 
-class TwoPlayer extends StatefulWidget {
-  const TwoPlayer({super.key});
+class OnePlayer extends StatefulWidget {
+  const OnePlayer({super.key});
 
   @override
-  State<TwoPlayer> createState() => _TwoPlayerState();
+  State<OnePlayer> createState() => _OnePlayerState();
 }
 
-class _TwoPlayerState extends State<TwoPlayer> {
+class _OnePlayerState extends State<OnePlayer> {
   int player1Score = 0;
-  int player2Score = 0;
 
   int player1LastRoll = 0;
-  int player2LastRoll = 0;
 
   int currentPlayer = 1;
   int currentDiceValue = 1;
@@ -22,7 +20,7 @@ class _TwoPlayerState extends State<TwoPlayer> {
 
   final int winningScore = 30;
 
-  Key _diceKey = UniqueKey(); // To re-trigger the roll animation
+  Key _diceKey = UniqueKey();
 
   void _rollTheDice() {
     if (gameOver) {
@@ -46,15 +44,6 @@ class _TwoPlayerState extends State<TwoPlayer> {
         } else {
           currentPlayer = 2;
         }
-      } else {
-        player2Score += value;
-        player2LastRoll = value;
-
-        if (player2Score >= winningScore) {
-          gameOver = true;
-        } else {
-          currentPlayer = 1;
-        }
       }
     });
   }
@@ -62,10 +51,8 @@ class _TwoPlayerState extends State<TwoPlayer> {
   void resetGame() {
     setState(() {
       player1Score = 0;
-      player2Score = 0;
 
       player1LastRoll = 0;
-      player2LastRoll = 0;
 
       currentPlayer = 1;
       currentDiceValue = 1;
@@ -133,30 +120,6 @@ class _TwoPlayerState extends State<TwoPlayer> {
                           ),
                           Text(
                             "$player1Score",
-                            style: TextStyle(
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(40.0, 0.0, 0.0, 0.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Player 2",
-                            style: TextStyle(
-                              fontSize: 26.0,
-                              fontWeight: FontWeight.bold,
-                              color: !gameOver && currentPlayer == 1
-                                  ? Colors.teal
-                                  : Colors.black,
-                            ),
-                          ),
-                          Text(
-                            "$player2Score",
                             style: TextStyle(
                               fontSize: 22.0,
                               fontWeight: FontWeight.w600,
